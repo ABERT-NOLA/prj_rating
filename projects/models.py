@@ -23,3 +23,10 @@ class Post(models.Model):
     @classmethod
     def get_all_posts(cls):
         return cls.objects.order_by('-date_posted')
+
+class Comment(models.Model):
+    content = models.TextField()
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content
