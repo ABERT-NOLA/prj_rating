@@ -30,3 +30,29 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class Rating(models.Model):
+    rating_choices = [
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    ]
+    design = models.IntegerField(default=0, choices = rating_choices, null=True)
+    usability = models.IntegerField(default=0, choices = rating_choices, null=True)
+    content = models.IntegerField(default=0, choices = rating_choices, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.post.title
+
+    @classmethod
+    def get_all_ratings(cls, post_id):
+        return cls.objects.filter(post_id=post_id)
