@@ -113,3 +113,14 @@ def add_comment(request, post_id):
         
     return render(request, 'index.html', context)
      
+@login_required
+def add_like(request, post_id):
+    post = Post.objects.filter(pk=post_id).first()
+    post.likes += 1
+    post.save()
+    all_posts = Post.get_all_posts()   
+    context = {
+        'posts': all_posts,
+    }    
+        
+    return render(request, 'index.html', context)
