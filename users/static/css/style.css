@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto:wght@100;700&display=swap');
+
+/* font-family: 'Noto Sans JP', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+body{
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: rgb(236, 233, 233);
+}
+h1, h2,h3, h4, h5, h6{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+.login, .register{
+    background: white;
+    color: black;
+    margin-top: 1em;    
+    
+}
+.react{
+    display: flex;
+    flex-direction: row;
+}
+.react p:last-child{
+    margin-left: 1em;
+}
+.react small{
+    justify-content: space-between;
+}
+
+.react img{
+    margin-right: 1em;
+}
+.react img:last-child:hover{
+    cursor: pointer;
+}
+
+.form-text, .asteriskField{
+    display:none;
+}
+.star-outer{
+    position: relative;
+    display: inline-block;
+}
+
+.star-inner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+.star-outer::before{
+    content: '\f005 \f005\f005\f005\f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 800;
+    color: rgb(139, 139, 139);
+}
+.star-inner::before{
+    content: '\f005 \f005\f005\f005\f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 800;
+    color: #f8ce0b;
+}
