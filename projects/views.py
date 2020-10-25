@@ -124,3 +124,19 @@ def add_like(request, post_id):
     }    
         
     return render(request, 'index.html', context)
+    
+@login_required
+def search_user(request):
+    if 'user' in  request.GET and request.GET['user']:
+        search_psn = request.GET.get("user")
+        found_user = User.objects.filter(username=search_psn).first()
+        print(found_user.id)
+        posts = Post.objects.filter(user=found_user.id)
+
+        context = {
+            'user': found_user,
+            'posts': posts,
+        }
+        
+        return render(request, 'projects/spec_user.html', context)
+    return redirect('welcome')

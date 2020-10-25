@@ -6,7 +6,7 @@ from rest_framework import viewsets, permissions
 from django.contrib.auth.models import User
 from .models import Profile
 from .serializers import ProfileSerializer, UserSerializer
-# from projects.models import Post
+from projects.models import Post
 
 # Create your views here.
 
