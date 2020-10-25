@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
     contact = models.CharField(max_length=100, null=True)
     company = models.CharField(max_length=100, null=True)
 

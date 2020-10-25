@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils.decorators import method_decorator
 from .serializers import PostSerializer, CommentSerializer
 from .forms import RatingForm
+from rest_framework import viewsets, permissions
+
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormMixin
