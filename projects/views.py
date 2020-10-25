@@ -6,6 +6,14 @@ from django.contrib.auth.models import User
 import math
 
 # Create your views here.
+def index(request):
+    title = 'Home'
+    all_posts = Post.get_all_posts()
+    context = {
+        'posts': all_posts,
+    }
+    return render(request, 'welcome.html', context)
+
 
 @method_decorator(login_required, name='dispatch')
 class PostDetailView(FormMixin, DetailView):
