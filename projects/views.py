@@ -1,5 +1,10 @@
-from django.shortcuts import render
-from django.views.generic import DetailView
+from django.shortcuts import render, redirect, reverse
+from .models import Post, Comment, Rating
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.utils.decorators import method_decorator
+from .serializers import PostSerializer, CommentSerializer
+from .forms import RatingForm
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.models import User
