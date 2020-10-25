@@ -9,7 +9,8 @@ Prj_rating enables users to view various projects uploaded other users, rate and
 - Python, Django, JavaScript, CSS and HTML
 - VS Code.
 ### API Endpoints
-
+1. posts = `https://project-rater-alb.herokuapp.com/v1/posts`
+2. users = `https://project-rater-alb.herokuapp.com/v1/users`
 ### Setup Installation
 To run the application:-
 1. Clone the repository to a folder in your machine using `https://github.com/ABERT-NOLA/prj_rating.git`
