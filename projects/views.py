@@ -86,7 +86,7 @@ class PostUpdateView(UserPassesTestMixin, UpdateView):
         if self.request.user == post.user:
             return True
         return False
-        
+
 @method_decorator(login_required, name='dispatch')
 class PostDeleteView(UserPassesTestMixin, DeleteView):
     model = Post
@@ -97,3 +97,19 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
         if self.request.user == post.user:
             return True
         return False
+
+@login_required
+def add_comment(request, post_id):
+    post = Post.objects.filter(pk=post_id)
+    all_posts = Post.get_all_posts()   
+    context = {
+        'posts': all_posts,
+    }
+    if request.method == 'POST':
+        content = request.POST.get('comment')
+        comment_inst = Comment(content=content, post_id=post_id)      
+        comment_inst.save()  
+        return redirect('welcome')
+        
+    return render(request, 'index.html', context)
+     
