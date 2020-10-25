@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row content-section">
+        <div class="col-sm-12">
+                <div class="card mt-1">                    
+                    <h3 class="text-center text-danger mt-1">{{object.title}}</h3>
+                    <img class="card-img-top mt-1" src="{{object.image_url.url}}" alt="{{object.url}}" title="{{object.url}}" style="height: 50vh; width:100%;object-fit:cover;">
+                    <div class="card-body">
+                        
+                        <p class="card-text">{{object.desc}}</p>
+                        
+                            {% if object.user == user %}
+                            <div>
+                                <h6 class="text-success text-center">Ratings</h6>
+                                <table class="table">
+                                    <caption>{{ratings}} Votes</caption>
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col">Design</th>
+                                        <th scope="col">Usability</th>
+                                        <th scope="col">Content</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="design">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-design">
+                                                </div>
+                                                <span class="number-rating" id='design'>{{design}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="usability">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-us">
+                                                </div>
+                                                <span class="number-rating" id='usability'>{{usability}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="content">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-con">
+                                                </div>
+                                                <span class="number-rating" id="content">{{content}}</span>
+                                            </div>
+                                        </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                            </div>
+                            {% else %}
+                            <div>
+                                <h6 class="text-success text-center">Ratings</h6>                                
+                                <table class="table">
+                                    <caption>{{ratings}} Votes</caption>
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col">Design</th>
+                                        <th scope="col">Usability</th>
+                                        <th scope="col">Content</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="design">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-design">
+                                                </div>
+                                                <span class="number-rating" id='design'>{{design}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="usability">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-us">
+                                                </div>
+                                                <span class="number-rating" id='usability'>{{usability}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="content">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-con">
+                                                </div>
+                                                <span class="number-rating" id="content">{{content}}</span>
+                                            </div>
+                                        </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"> Rate</button>
+                                <!-- Button trigger modal -->
+  
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title text-center text-danger" id="exampleModalLabel">Rate project</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                        <div class="modal-body">
+                                            <p>10:- Best, 1:- Worst</p>
+                                            {{form | crispy}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Rate</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endif %}
+                        <div class="react" style="justify-content: space-between;">
+                            <div class="react">
+                                <p><span style="font-weight: bold;" class="text-danger">{{object.comments.all | length}}&nbsp; &nbsp;</span><img data-toggle="collapse" style="cursor: pointer;" src="https://img.icons8.com/metro/26/000000/comments.png"/></p>
+
+                            </div>
+                            {% if object.user == user %}
+                            <div class="react">
+                                <a href="{% url 'update-post' object.id %}" class="btn btn-outline-secondary">Update Post</a>
+                                <a href="{% url 'delete-post' object.id %}" class="btn btn-outline-danger ml-2">Delete Post</a>
+                            </div>
+                            {% endif %}                           
+                        </div>
+                        
+                        <div class="card-footer">                            
+                            {% for comment in object.comments.all %}
+                                <small>{{comment.content}}</small><br>
+                            {% endfor %}
+                            <form class="form-inline" action="{%url 'addcomment' object.id%}" method="POST">   
+                                {% csrf_token %}                         
+                                <div class="form-group">
+                                <input type="text" class="form-control" id="comment" placeholder="Comment" name="comment">
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary ml-2">Post</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+
+        </div>
+        
+
+    </div>
+{% endblock %}
