@@ -62,3 +62,12 @@ class PostDetailView(FormMixin, DetailView):
         form.save()
         
         return super(PostDetailView, self).form_valid(form)
+
+@method_decorator(login_required, name='dispatch')
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title','url','tech_used','desc', 'image_url']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
