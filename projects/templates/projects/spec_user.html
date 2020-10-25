@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+        <h3>Found!</h3>
+        <div class="col-sm-12 react">
+            <img src="{{user.profile.image.url}}" alt="">           
+            
+        </div>
+        
+    </div>
+    <div class="row mt-1" >
+        
+        {% for post in posts %}
+        <div class="col-sm-4">
+            <div class="card mt-1">
+                                    
+                <img class="card-img-top mt-1" src="{{post.image_url.url}}" alt="{{object.url}}" title="{{object.url}}" style="height: 30vh; width:100%;object-fit:cover;">
+                <div class="card-body">
+                    
+                    <div class="react">
+                        <img src="https://img.icons8.com/metro/26/000000/comments.png"/></a>                    
+
+                    </div>
+                    
+                    <p class="card-text" style="height: 8vh;">{{post.desc | truncatewords:15}} <a href="{% url 'post-detail' post.id %}">read more</a></p>
+                    {% if object.user == user %}
+                            <div>
+                                <h6 class="text-success text-center">Ratings</h6>
+                                <table class="table">
+                                    <caption>{{ratings}} Votes</caption>
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col">Design</th>
+                                        <th scope="col">Usability</th>
+                                        <th scope="col">Content</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="design">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-design">
+                                                </div>
+                                                <span class="number-rating" id='design'>{{design}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="usability">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-us">
+                                                </div>
+                                                <span class="number-rating" id='usability'>{{usability}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="content">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-con">
+                                                </div>
+                                                <span class="number-rating" id="content">{{content}}</span>
+                                            </div>
+                                        </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                            </div>
+                            {% else %}
+                            <div>
+                                <h6 class="text-success text-center">Ratings</h6>                                
+                                <table class="table">
+                                    <caption>{{ratings}} Votes</caption>
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col">Design</th>
+                                        <th scope="col">Usability</th>
+                                        <th scope="col">Content</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td class="design">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-design">
+                                                </div>
+                                                <span class="number-rating" id='design'>{{design}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="usability">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-us">
+                                                </div>
+                                                <span class="number-rating" id='usability'>{{usability}}</span>
+                                            </div>
+                                        </td>
+                                        <td class="content">
+                                            <div class="star-outer">
+                                                <div class="star-inner" id="star-inner-con">
+                                                </div>
+                                                <span class="number-rating" id="content">{{content}}</span>
+                                            </div>
+                                        </td>
+                                      </tr>
+                                      
+                                    </tbody>
+                                  </table>
+                                
+                            </div>
+
+                            {% endif %}
+                    <div class="react">
+                        <p>{{post.comments.all | length}} Comments</p>
+                    </div>                     
+                </div>
+                <div class="card-footer">
+                        
+                    {% for comment in post.comments.all %}
+                        <small>{{comment.content}}</small><br>
+                    {% endfor %}
+                    <form class="form-inline" action="{%url 'addcomment' post.id%}" method="POST">   
+                        {% csrf_token %}                         
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="comment" placeholder="Comment" name="comment">
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary ml-2">Post</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+</div>
+{% endblock %}
